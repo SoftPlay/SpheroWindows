@@ -6,6 +6,7 @@ I hope to add lots of different control mechanisms for driving Sphero:
 * XBox controller
 * Voice
 
+# Quick Start - Development
 
 ## Pre-requisites
 - Visual Studio 2015 with the following options installed from the "Windows and Web Development" section:
