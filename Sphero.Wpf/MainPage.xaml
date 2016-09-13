@@ -6,6 +6,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:ViewModels="using:SpheroController.Wpf.ViewModels"
+    xmlns:controls="using:SpheroController.Wpf.Controls"
     xmlns:ColorPicker="using:ColorPicker"
     mc:Ignorable="d">
     <Page.DataContext>
@@ -33,6 +34,7 @@
                         </Grid.RowDefinitions>
                         <ColorPicker:ColorPicker SelectedColorChanged="ColorPicker_SelectedColorChanged" Grid.Column="0" Grid.Row="0"/>
                         <CheckBox IsChecked="{Binding TailLight, Mode=TwoWay}" Content="Tail Light" Grid.Column="0" Grid.Row="1" />
+                        <controls:OnScreenJoystick Angle="{Binding RollAngle, Mode=TwoWay}" Distance="{Binding RollDistance, Mode=TwoWay}" Grid.Column="1" Grid.Row="1" />
                     </Grid>
                 </DataTemplate>
             </Pivot.ItemTemplate>

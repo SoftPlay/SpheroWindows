@@ -18,6 +18,8 @@ namespace SpheroController.Wpf.ViewModels
 		private Color color = Colors.Black;
 
 		private bool tailLight = false;
+		private double rollAngle;
+		private double rollDistance;
 
 		public SpheroViewModel(Sphero sphero)
 		{
@@ -61,6 +63,46 @@ namespace SpheroController.Wpf.ViewModels
 				{
 					this.sphero.SetBackLED(value ? 1.0f : 0.0f);
 				}
+			}
+		}
+
+		public double RollAngle
+		{
+			get
+			{
+				return this.rollAngle;
+			}
+
+			set
+			{
+				if (this.SetProperty(ref this.rollAngle, value))
+				{
+					this.Roll();
+				}
+			}
+		}
+
+		public double RollDistance
+		{
+			get
+			{
+				return this.rollDistance;
+			}
+
+			set
+			{
+				if (this.SetProperty(ref this.rollDistance, value))
+				{
+					this.Roll();
+				}
+			}
+		}
+
+		private void Roll()
+		{
+			if (this.rollDistance > 0)
+			{
+				this.sphero.Roll((int)this.RollAngle, (float)this.RollDistance / 100);
 			}
 		}
 	}
