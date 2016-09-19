@@ -18,15 +18,15 @@ using Windows.UI.Xaml.Navigation;
 
 namespace SpheroController.Wpf
 {
-    /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
-    /// </summary>
-    public sealed partial class MainPage : Page
-    {
-        public MainPage()
-        {
-            this.InitializeComponent();
-        }
+	/// <summary>
+	/// An empty page that can be used on its own or navigated to within a Frame.
+	/// </summary>
+	public sealed partial class MainPage : Page
+	{
+		public MainPage()
+		{
+			this.InitializeComponent();
+		}
 
 		private void ColorPicker_SelectedColorChanged(object sender, EventArgs e)
 		{

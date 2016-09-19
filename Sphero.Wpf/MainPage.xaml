@@ -14,30 +14,43 @@
     </Page.DataContext>
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <Pivot ItemsSource="{Binding SpheroViewModelCollection}">
-            <Pivot.HeaderTemplate>
-                <DataTemplate>
-                    <TextBlock Text="{Binding Name}" />
-                </DataTemplate>
-            </Pivot.HeaderTemplate>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Border BorderBrush="Black" BorderThickness="2">
+            <Pivot ItemsSource="{Binding SpheroViewModelCollection}">
+                <Pivot.HeaderTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Name}" />
+                    </DataTemplate>
+                </Pivot.HeaderTemplate>
 
-            <Pivot.ItemTemplate>
-                <DataTemplate>
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition />
-                            <ColumnDefinition />
-                        </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition />
-                            <RowDefinition />
-                        </Grid.RowDefinitions>
-                        <ColorPicker:ColorPicker SelectedColorChanged="ColorPicker_SelectedColorChanged" Grid.Column="0" Grid.Row="0"/>
-                        <CheckBox IsChecked="{Binding TailLight, Mode=TwoWay}" Content="Tail Light" Grid.Column="0" Grid.Row="1" />
-                        <controls:OnScreenJoystick Angle="{Binding RollAngle, Mode=TwoWay}" Distance="{Binding RollDistance, Mode=TwoWay}" Grid.Column="1" Grid.Row="1" />
-                    </Grid>
-                </DataTemplate>
-            </Pivot.ItemTemplate>
-        </Pivot>
+                <Pivot.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="40px" />
+                                <RowDefinition />
+                                <RowDefinition Height="40px" />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+                            <ColorPicker:ColorPicker SelectedColorChanged="ColorPicker_SelectedColorChanged" Grid.Column="0" Grid.Row="0" Grid.RowSpan="2"/>
+                            <CheckBox IsChecked="{Binding TailLight, Mode=TwoWay}" Content="Tail Light" Grid.Column="0" Grid.Row="2"  Grid.RowSpan="2"/>
+                            <TextBlock Text="Rotate (Calibrate)" Grid.Column="1" Grid.Row="0" />
+                            <TextBox Text="{Binding RotateAngle, Mode=TwoWay}" Grid.Column="1" Grid.Row="1" />
+                            
+                            <TextBlock Text="Roll" Grid.Column="1" Grid.Row="0" />
+                            <controls:OnScreenJoystick Angle="{Binding RollAngle, Mode=TwoWay}" Distance="{Binding RollDistance, Mode=TwoWay}" Grid.Column="1" Grid.Row="3" />
+                        </Grid>
+                    </DataTemplate>
+                </Pivot.ItemTemplate>
+            </Pivot>
+        </Border>
+        <controls:OnScreenJoystick Angle="{Binding RollAngle, Mode=TwoWay}" Distance="{Binding RollDistance, Mode=TwoWay}" Grid.Row="1" />
     </Grid>
 </Page>

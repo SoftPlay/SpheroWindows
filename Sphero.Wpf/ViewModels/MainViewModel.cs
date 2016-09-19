@@ -8,6 +8,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Practices.Prism.Mvvm;
 using RobotKit;
+using SpheroController.Wpf.Robots;
 using Windows.UI.Popups;
 
 namespace SpheroController.Wpf.ViewModels
@@ -15,6 +16,8 @@ namespace SpheroController.Wpf.ViewModels
 	public class MainViewModel : BindableBase
 	{
 		private readonly SynchronizationContext context;
+		private double rollAngle;
+		private double rollDistance;
 
 		public MainViewModel()
 		{
@@ -28,6 +31,44 @@ namespace SpheroController.Wpf.ViewModels
 		}
 
 		public ObservableCollection<SpheroViewModel> SpheroViewModelCollection { get; private set; } = new ObservableCollection<SpheroViewModel>();
+
+		public double RollAngle
+		{
+			get
+			{
+				return this.rollAngle;
+			}
+
+			set
+			{
+				if (this.SetProperty(ref this.rollAngle, value))
+				{
+					foreach (var sphero in this.SpheroViewModelCollection)
+					{
+						sphero.RollAngle = value;
+					}
+				}
+			}
+		}
+
+		public double RollDistance
+		{
+			get
+			{
+				return this.rollDistance;
+			}
+
+			set
+			{
+				if (this.SetProperty(ref this.rollDistance, value))
+				{
+					foreach (var sphero in this.SpheroViewModelCollection)
+					{
+						sphero.RollDistance = value;
+					}
+				}
+			}
+		}
 
 		private void Provider_DiscoveredRobotEvent(object sender, Robot e)
 		{
@@ -47,7 +88,8 @@ namespace SpheroController.Wpf.ViewModels
 		{
 			if (e is Sphero)
 			{
-				var viewModel = new SpheroViewModel(e as Sphero);
+				var sphero = new SpheroWrapper(e as Sphero);
+				var viewModel = new SpheroViewModel(sphero);
 
 				this.context.Post((obj) => this.SpheroViewModelCollection.Add(viewModel), null);
 			}

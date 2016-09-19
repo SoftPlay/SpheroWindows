@@ -104,6 +104,12 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Controls\ColorWheel.cs" />
+    <Compile Include="Robots\IRobot.cs" />
+    <Compile Include="Robots\ISphero.cs" />
+    <Compile Include="Robots\RobotEventArgs.cs" />
+    <Compile Include="Robots\RobotProviderWrapper.cs" />
+    <Compile Include="Robots\RobotWrapper.cs" />
+    <Compile Include="Robots\SpheroWrapper.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\SpheroViewModel.cs" />
   </ItemGroup>

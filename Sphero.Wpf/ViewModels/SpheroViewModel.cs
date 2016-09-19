@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Practices.Prism.Mvvm;
-using RobotKit;
+using SpheroController.Wpf.Robots;
 using Windows.UI;
 using Windows.UI.Xaml.Media;
 
@@ -13,15 +13,16 @@ namespace SpheroController.Wpf.ViewModels
 {
 	public class SpheroViewModel : BindableBase
 	{
-		private readonly Sphero sphero;
+		private readonly SpheroWrapper sphero;
 
 		private Color color = Colors.Black;
 
 		private bool tailLight = false;
 		private double rollAngle;
 		private double rollDistance;
+		private double rotateAngle;
 
-		public SpheroViewModel(Sphero sphero)
+		public SpheroViewModel(SpheroWrapper sphero)
 		{
 			this.sphero = sphero;
 		}
@@ -98,11 +99,30 @@ namespace SpheroController.Wpf.ViewModels
 			}
 		}
 
+		public double RotateAngle
+		{
+			get
+			{
+				return this.rotateAngle;
+			}
+
+			set
+			{
+				if (this.SetProperty(ref this.rotateAngle, value))
+				{
+					this.sphero.Roll((int)this.rotateAngle, 0);
+				}
+			}
+		}
+
 		private void Roll()
 		{
-			if (this.rollDistance > 0)
+			if (this.RollDistance > 0)
 			{
 				this.sphero.Roll((int)this.RollAngle, (float)this.RollDistance / 100);
+			} else
+			{
+				this.sphero.Roll(0, 0f);
 			}
 		}
 	}
