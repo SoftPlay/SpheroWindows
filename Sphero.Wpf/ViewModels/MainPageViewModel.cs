@@ -6,20 +6,20 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using Microsoft.Practices.Prism.Mvvm;
+using Prism.Mvvm;
 using RobotKit;
 using SpheroController.Wpf.Robots;
 using Windows.UI.Popups;
 
 namespace SpheroController.Wpf.ViewModels
 {
-	public class MainViewModel : BindableBase
+	public class MainPageViewModel : BindableBase
 	{
 		private readonly SynchronizationContext context;
 		private double rollAngle;
 		private double rollDistance;
 
-		public MainViewModel()
+		public MainPageViewModel()
 		{
 			this.context = SynchronizationContext.Current ?? new SynchronizationContext();
 

@@ -1,9 +1,10 @@
 ﻿{
   "dependencies": {
     "colorpicker": "1.0.2",
-    "Microsoft.NETCore.UniversalWindowsPlatform": "5.1.0",
-    "Prism.Mvvm": "1.1.1",
-    "Unity": "4.0.1"
+    "Microsoft.NETCore.UniversalWindowsPlatform": "5.2.2",
+    "Prism.Core": "6.2.0",
+    "Prism.Unity": "6.2.0",
+    "Prism.Windows": "6.0.2"
   },
   "frameworks": {
     "uap10.0": {}

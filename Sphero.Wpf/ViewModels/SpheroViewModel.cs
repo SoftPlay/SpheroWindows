@@ -4,7 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Microsoft.Practices.Prism.Mvvm;
+using Prism.Mvvm;
 using SpheroController.Wpf.Robots;
 using Windows.UI;
 using Windows.UI.Xaml.Media;
