@@ -13,7 +13,7 @@ namespace SpheroController.Wpf.ViewModels
 {
 	public class SpheroViewModel : BindableBase
 	{
-		private readonly SpheroWrapper sphero;
+		private readonly ISphero sphero;
 
 		private Color color = Colors.Black;
 
@@ -22,7 +22,7 @@ namespace SpheroController.Wpf.ViewModels
 		private double rollDistance;
 		private double rotateAngle;
 
-		public SpheroViewModel(SpheroWrapper sphero)
+		public SpheroViewModel(ISphero sphero)
 		{
 			this.sphero = sphero;
 		}

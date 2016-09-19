@@ -99,6 +99,7 @@
       <DependentUpon>OnScreenJoystick.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\VirtualJoystickEventArgs.cs" />
+    <Compile Include="Robots\IRobotProvider.cs" />
     <Compile Include="Views\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>

@@ -1,13 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using Prism.Mvvm;
-using RobotKit;
 using SpheroController.Wpf.Robots;
 using Windows.UI.Popups;
 
@@ -16,18 +11,21 @@ namespace SpheroController.Wpf.ViewModels
 	public class MainPageViewModel : BindableBase
 	{
 		private readonly SynchronizationContext context;
+		private readonly IRobotProvider robotProvider;
 		private double rollAngle;
 		private double rollDistance;
+		
 
-		public MainPageViewModel()
+		public MainPageViewModel(IRobotProvider robotProvider)
 		{
 			this.context = SynchronizationContext.Current ?? new SynchronizationContext();
 
-			RobotProvider provider = RobotProvider.GetSharedProvider();
-			provider.DiscoveredRobotEvent += this.Provider_DiscoveredRobotEvent; ;
-			provider.NoRobotsEvent += this.Provider_NoRobotsEvent; ;
-			provider.ConnectedRobotEvent += Provider_ConnectedRobotEvent; ;
-			provider.FindRobots();
+			this.robotProvider = robotProvider;
+
+			this.robotProvider.DiscoveredRobotEvent += this.Provider_DiscoveredRobotEvent; ;
+			this.robotProvider.NoRobotsEvent += this.Provider_NoRobotsEvent; ;
+			this.robotProvider.ConnectedRobotEvent += Provider_ConnectedRobotEvent; ;
+			this.robotProvider.FindRobots();
 		}
 
 		public ObservableCollection<SpheroViewModel> SpheroViewModelCollection { get; private set; } = new ObservableCollection<SpheroViewModel>();
@@ -70,26 +68,24 @@ namespace SpheroController.Wpf.ViewModels
 			}
 		}
 
-		private void Provider_DiscoveredRobotEvent(object sender, Robot e)
+		private void Provider_DiscoveredRobotEvent(object sender, RobotEventArgs e)
 		{
-			if (e is Sphero)
+			if (e.Robot is ISphero)
 			{
 				// Discovered a sphero. Now connect to it.
-				var provider = RobotProvider.GetSharedProvider();
-				provider.ConnectRobot(e);
+				this.robotProvider.ConnectRobot(e.Robot);
 			}
 			else
 			{
-				Debug.WriteLine(string.Format("Found some other kind of Robot: {0}", e.GetType()));
+				Debug.WriteLine(string.Format("Found some other kind of Robot: {0}", e.Robot.GetType()));
 			}
 		}
 
-		private void Provider_ConnectedRobotEvent(object sender, Robot e)
+		private void Provider_ConnectedRobotEvent(object sender, RobotEventArgs e)
 		{
-			if (e is Sphero)
+			if (e.Robot is ISphero)
 			{
-				var sphero = new SpheroWrapper(e as Sphero);
-				var viewModel = new SpheroViewModel(sphero);
+				var viewModel = new SpheroViewModel(e.Robot as ISphero);
 
 				this.context.Post((obj) => this.SpheroViewModelCollection.Add(viewModel), null);
 			}

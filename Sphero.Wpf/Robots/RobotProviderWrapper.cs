@@ -5,7 +5,7 @@ using RobotKit;
 
 namespace SpheroController.Wpf.Robots
 {
-	public class RobotProviderWrapper
+	public class RobotProviderWrapper : IRobotProvider
 	{
 		public event EventHandler<RobotEventArgs> ConnectedRobotEvent;
 		public event EventHandler<RobotEventArgs> DiscoveredRobotEvent;
