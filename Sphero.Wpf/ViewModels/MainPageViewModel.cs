@@ -1,14 +1,16 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Threading;
 using Prism.Mvvm;
+using Prism.Windows.Navigation;
 using SpheroController.Wpf.Robots;
 using Windows.UI.Popups;
 
 namespace SpheroController.Wpf.ViewModels
 {
-	public class MainPageViewModel : BindableBase
+	public class MainPageViewModel : BindableBase, INavigationAware
 	{
 		private readonly SynchronizationContext context;
 		private readonly IRobotProvider robotProvider;
@@ -25,7 +27,6 @@ namespace SpheroController.Wpf.ViewModels
 			this.robotProvider.DiscoveredRobotEvent += this.Provider_DiscoveredRobotEvent; ;
 			this.robotProvider.NoRobotsEvent += this.Provider_NoRobotsEvent; ;
 			this.robotProvider.ConnectedRobotEvent += Provider_ConnectedRobotEvent; ;
-			this.robotProvider.FindRobots();
 		}
 
 		public ObservableCollection<SpheroViewModel> SpheroViewModelCollection { get; private set; } = new ObservableCollection<SpheroViewModel>();
@@ -97,6 +98,15 @@ namespace SpheroController.Wpf.ViewModels
 			dialog.DefaultCommandIndex = 0;
 			dialog.CancelCommandIndex = 1;
 			await dialog.ShowAsync();
+		}
+
+		public async void OnNavigatedTo(NavigatedToEventArgs e, Dictionary<string, object> viewModelState)
+		{
+			await this.robotProvider.FindRobots();
+		}
+
+		public void OnNavigatingFrom(NavigatingFromEventArgs e, Dictionary<string, object> viewModelState, bool suspending)
+		{
 		}
 	}
 }

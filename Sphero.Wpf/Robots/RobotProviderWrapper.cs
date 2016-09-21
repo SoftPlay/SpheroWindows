@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using RobotKit;
 
 namespace SpheroController.Wpf.Robots
@@ -18,9 +19,9 @@ namespace SpheroController.Wpf.Robots
 			RobotProvider.GetSharedProvider().NoRobotsEvent += (s, e) => this.NoRobotsEvent?.Invoke(this, EventArgs.Empty);
 		}
 
-		public void ConnectRobot(IRobot robot)
+		public async Task ConnectRobot(IRobot robot)
 		{
-			RobotProvider.GetSharedProvider().ConnectRobot(robot.RawObject);
+			await RobotProvider.GetSharedProvider().ConnectRobot(robot.RawObject);
 		}
 
 		public void DisconnectAll()
@@ -28,9 +29,9 @@ namespace SpheroController.Wpf.Robots
 			RobotProvider.GetSharedProvider().DisconnectAll();
 		}
 
-		public void FindRobots()
+		public async Task FindRobots()
 		{
-			RobotProvider.GetSharedProvider().FindRobots();
+			await RobotProvider.GetSharedProvider().FindRobots();
 		}
 
 		public IRobot GetConnectedRobot()

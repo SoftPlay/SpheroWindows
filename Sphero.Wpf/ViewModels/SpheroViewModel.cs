@@ -31,7 +31,7 @@ namespace SpheroController.Wpf.ViewModels
 		{
 			get
 			{
-				return string.Format($"{this.sphero.Name} ({this.sphero.BluetoothName})");
+				return $"{this.sphero.Name} ({this.sphero.BluetoothName})";
 			}
 		}
 

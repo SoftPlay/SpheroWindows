@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace SpheroController.Wpf.Robots
 {
@@ -9,9 +10,9 @@ namespace SpheroController.Wpf.Robots
 		event EventHandler<RobotEventArgs> DiscoveredRobotEvent;
 		event EventHandler NoRobotsEvent;
 
-		void ConnectRobot(IRobot robot);
+		Task ConnectRobot(IRobot robot);
 		void DisconnectAll();
-		void FindRobots();
+		Task FindRobots();
 		IRobot GetConnectedRobot();
 		List<IRobot> GetConnectedRobots();
 	}
