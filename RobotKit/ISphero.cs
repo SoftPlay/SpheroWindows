@@ -1,4 +1,4 @@
-﻿namespace SpheroController.Wpf.Robots
+﻿namespace RobotKit
 {
 	public interface ISphero : IRobot
 	{

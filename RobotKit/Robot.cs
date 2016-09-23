@@ -11,7 +11,7 @@ using Windows.Devices.Bluetooth.Rfcomm;
 
 namespace RobotKit
 {
-    public class Robot
+    public class Robot : IRobot
     {
         public Robot.ConnectionStateChanged OnConnectionStateChanged;
 

@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Prism.Mvvm;
-using SpheroController.Wpf.Robots;
+using RobotKit;
 using Windows.UI;
 using Windows.UI.Xaml.Media;
 

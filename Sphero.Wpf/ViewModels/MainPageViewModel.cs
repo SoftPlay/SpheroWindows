@@ -5,7 +5,7 @@ using System.Diagnostics;
 using System.Threading;
 using Prism.Mvvm;
 using Prism.Windows.Navigation;
-using SpheroController.Wpf.Robots;
+using RobotKit;
 using Windows.UI.Popups;
 
 namespace SpheroController.Wpf.ViewModels

@@ -99,18 +99,11 @@
       <DependentUpon>OnScreenJoystick.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\VirtualJoystickEventArgs.cs" />
-    <Compile Include="Robots\IRobotProvider.cs" />
     <Compile Include="Views\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Controls\ColorWheel.cs" />
-    <Compile Include="Robots\IRobot.cs" />
-    <Compile Include="Robots\ISphero.cs" />
-    <Compile Include="Robots\RobotEventArgs.cs" />
-    <Compile Include="Robots\RobotProviderWrapper.cs" />
-    <Compile Include="Robots\RobotWrapper.cs" />
-    <Compile Include="Robots\SpheroWrapper.cs" />
     <Compile Include="ViewModels\MainPageViewModel.cs" />
     <Compile Include="ViewModels\SpheroViewModel.cs" />
   </ItemGroup>

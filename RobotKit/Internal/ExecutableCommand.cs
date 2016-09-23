@@ -4,11 +4,11 @@ namespace RobotKit.Internal
 {
     internal class ExecutableCommand
     {
-        private Byte deviceId;
+        ////private Byte deviceId;
 
-        private Byte cmdId;
+        ////private Byte cmdId;
 
-        private Boolean responseRequested = true;
+        ////private Boolean responseRequested = true;
 
         public ExecutableCommand()
         {

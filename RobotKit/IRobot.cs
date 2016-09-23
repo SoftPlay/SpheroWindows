@@ -1,11 +1,10 @@
 ﻿using RobotKit;
 using RobotKit.Internal;
 
-namespace SpheroController.Wpf.Robots
+namespace RobotKit
 {
 	public interface IRobot
 	{
-		Robot RawObject { get; }
 		string BluetoothName { get; }
 		CollisionControl CollisionControl { get; }
 		ConnectionState ConnectionState { get; }

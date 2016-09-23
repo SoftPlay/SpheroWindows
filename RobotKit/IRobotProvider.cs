@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace SpheroController.Wpf.Robots
+namespace RobotKit
 {
 	public interface IRobotProvider
 	{

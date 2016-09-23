@@ -5,7 +5,7 @@ using Windows.Devices.Bluetooth.Rfcomm;
 
 namespace RobotKit
 {
-    public class Sphero : Robot
+    public class Sphero : Robot, ISphero
     {
         internal Sphero(RfcommDeviceService info) : base(info)
         {

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SpheroController.Wpf.Robots
+namespace RobotKit
 {
 	public class RobotEventArgs : EventArgs
 	{

@@ -6,10 +6,6 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpheroController.Wpf", "Sphero.Wpf\SpheroController.Wpf.csproj", "{15F2D4BB-5CDE-4855-AD72-800D5375C30C}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{2C13C65B-3D8F-4A63-948E-460F5EDC924C}"
-	ProjectSection(SolutionItems) = preProject
-		library\0.9.0-preview\debug\RobotKit.dll = library\0.9.0-preview\debug\RobotKit.dll
-		library\0.9.0-preview\release\RobotKit.dll = library\0.9.0-preview\release\RobotKit.dll
-	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RobotKit", "RobotKit\RobotKit.csproj", "{1E50E6E1-893B-4470-8FBF-4F3BC965E75A}"
 EndProject

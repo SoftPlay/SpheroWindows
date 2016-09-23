@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using Microsoft.Practices.Unity;
 using Prism.Mvvm;
 using Prism.Unity.Windows;
-using SpheroController.Wpf.Robots;
+using RobotKit;
 using Windows.ApplicationModel.Activation;
 using Windows.UI.Xaml;
 
@@ -35,7 +35,7 @@ namespace SpheroController.Wpf
 		{
 			base.ConfigureContainer();
 
-			this.Container.RegisterType<IRobotProvider, RobotProviderWrapper>(new ContainerControlledLifetimeManager());
+			this.Container.RegisterInstance<IRobotProvider>(RobotProvider.GetSharedProvider());
 		}
 
 		private void RegisterTypes()
