@@ -19,8 +19,10 @@
         <Grid.RowDefinitions>
             <RowDefinition/>
             <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
         </Grid.RowDefinitions>
-        <Border BorderBrush="Black" BorderThickness="2">
+        <Border BorderBrush="Black" BorderThickness="2" Grid.RowSpan="2">
             <Pivot ItemsSource="{Binding SpheroViewModelCollection}">
                 <Pivot.HeaderTemplate>
                     <DataTemplate>
@@ -53,6 +55,7 @@
                 </Pivot.ItemTemplate>
             </Pivot>
         </Border>
-        <controls:OnScreenJoystick Angle="{Binding RollAngle, Mode=TwoWay}" Distance="{Binding RollDistance, Mode=TwoWay}" Grid.Row="1" />
+        <controls:OnScreenJoystick Angle="{Binding RollAngle, Mode=TwoWay}" Distance="{Binding RollDistance, Mode=TwoWay}" Grid.Row="2" />
+        <ListBox ItemsSource="{Binding DebugItemCollection}" Grid.Row="3" />
     </Grid>
 </Page>

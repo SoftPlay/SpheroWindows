@@ -12,7 +12,6 @@ namespace SpheroController.Wpf.ViewModels
 {
 	public class MainPageViewModel : BindableBase, INavigationAware
 	{
-		private readonly SynchronizationContext context;
 		private readonly IRobotProvider robotProvider;
 		private double rollAngle;
 		private double rollDistance;
@@ -20,16 +19,12 @@ namespace SpheroController.Wpf.ViewModels
 
 		public MainPageViewModel(IRobotProvider robotProvider)
 		{
-			this.context = SynchronizationContext.Current ?? new SynchronizationContext();
-
 			this.robotProvider = robotProvider;
-
-			this.robotProvider.DiscoveredRobotEvent += this.Provider_DiscoveredRobotEvent; ;
-			this.robotProvider.NoRobotsEvent += this.Provider_NoRobotsEvent; ;
-			this.robotProvider.ConnectedRobotEvent += Provider_ConnectedRobotEvent; ;
 		}
 
-		public ObservableCollection<SpheroViewModel> SpheroViewModelCollection { get; private set; } = new ObservableCollection<SpheroViewModel>();
+		public ObservableCollection<SpheroViewModel> SpheroViewModelCollection { get; } = new ObservableCollection<SpheroViewModel>();
+
+		public ObservableCollection<string> DebugItemCollection { get; } = new ObservableCollection<string>();
 
 		public double RollAngle
 		{
@@ -69,40 +64,44 @@ namespace SpheroController.Wpf.ViewModels
 			}
 		}
 
-		private void Provider_DiscoveredRobotEvent(object sender, RobotEventArgs e)
+		public async void OnNavigatedTo(NavigatedToEventArgs e, Dictionary<string, object> viewModelState)
 		{
-			if (e.Robot is ISphero)
+			var robots = await this.robotProvider.FindRobots();
+
+			if (robots.Count == 0)
 			{
-				// Discovered a sphero. Now connect to it.
-				this.robotProvider.ConnectRobot(e.Robot);
+				this.DebugItemCollection.Add("Didn't find any Spheros :-(");
 			}
 			else
 			{
-				Debug.WriteLine(string.Format("Found some other kind of Robot: {0}", e.Robot.GetType()));
+				foreach (var robot in robots)
+				{
+					if (robot is ISphero)
+					{
+						// Discovered a sphero. Now connect to it.
+						this.DebugItemCollection.Add($"Connecting to Sphero {robot.BluetoothName}");
+
+						var connected = await this.robotProvider.ConnectRobot(robot);
+
+						if (connected)
+						{
+							this.DebugItemCollection.Add($"Connected to Sphero {robot.BluetoothName}!");
+
+							var viewModel = new SpheroViewModel(robot as ISphero);
+
+							this.SpheroViewModelCollection.Add(viewModel);
+						}
+						else
+						{
+							this.DebugItemCollection.Add($"Failed to connect to Sphero {robot.BluetoothName}");
+						}
+					}
+					else
+					{
+						Debug.WriteLine($"Found some other kind of Robot: {robot.GetType()}");
+					}
+				}
 			}
-		}
-
-		private void Provider_ConnectedRobotEvent(object sender, RobotEventArgs e)
-		{
-			if (e.Robot is ISphero)
-			{
-				var viewModel = new SpheroViewModel(e.Robot as ISphero);
-
-				this.context.Post((obj) => this.SpheroViewModelCollection.Add(viewModel), null);
-			}
-		}
-
-		private async void Provider_NoRobotsEvent(object sender, EventArgs e)
-		{
-			MessageDialog dialog = new MessageDialog("Didn't find Sphero :-(");
-			dialog.DefaultCommandIndex = 0;
-			dialog.CancelCommandIndex = 1;
-			await dialog.ShowAsync();
-		}
-
-		public async void OnNavigatedTo(NavigatedToEventArgs e, Dictionary<string, object> viewModelState)
-		{
-			await this.robotProvider.FindRobots();
 		}
 
 		public void OnNavigatingFrom(NavigatingFromEventArgs e, Dictionary<string, object> viewModelState, bool suspending)

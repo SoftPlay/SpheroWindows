@@ -10,9 +10,9 @@ namespace RobotKit
 		event EventHandler<RobotEventArgs> DiscoveredRobotEvent;
 		event EventHandler NoRobotsEvent;
 
-		Task ConnectRobot(IRobot robot);
+		Task<bool> ConnectRobot(IRobot robot);
 		void DisconnectAll();
-		Task FindRobots();
+		Task<IReadOnlyCollection<IRobot>> FindRobots();
 		IRobot GetConnectedRobot();
 		List<IRobot> GetConnectedRobots();
 	}

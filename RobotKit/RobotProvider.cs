@@ -2,13 +2,10 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Windows;
-using Windows.Networking.Proximity;
-using Windows.UI.Popups;
 using System.Threading.Tasks;
-using Windows.Devices.Enumeration;
 using Windows.Devices.Bluetooth.Rfcomm;
+using Windows.Devices.Enumeration;
+using Windows.Networking.Proximity;
 
 namespace RobotKit
 {
@@ -31,18 +28,17 @@ namespace RobotKit
 			PeerFinder.AlternateIdentities["Bluetooth:PAIRED"] = "";
 		}
 
-		public async Task ConnectRobot(IRobot robot)
+		public async Task<bool> ConnectRobot(IRobot robot)
 		{
-			if (!await (robot as Robot).Connect())
-			{
-				await toastFailConnect(robot.BluetoothName);
-			}
-			else
+			bool connected = await (robot as Robot).Connect();
+
+			if (connected)
 			{
 				ConnectedRobotEvent?.Invoke(this, new RobotEventArgs(robot));
 				connectedRobots.Add(robot);
-				await toastConnect(robot.BluetoothName);
 			}
+
+			return connected;
 		}
 
 		public void DisconnectAll()
@@ -53,8 +49,9 @@ namespace RobotKit
 			}
 		}
 
-		public async Task FindRobots()
+		public async Task<IReadOnlyCollection<IRobot>> FindRobots()
 		{
+			var foundRobots = new List<IRobot>();
 			try
 			{
 				var deviceInformationCollection = 
@@ -63,12 +60,9 @@ namespace RobotKit
 
 				if (!deviceInformationCollection.Any())
 				{
-					EventHandler noRobotsEvent = NoRobotsEvent;
-					if (noRobotsEvent != null)
-					{
-						noRobotsEvent.Invoke(this, null);
-					}
+					NoRobotsEvent?.Invoke(this, EventArgs.Empty);
 				}
+
 				foreach(var item in deviceInformationCollection)
 				{
 					if (!item.Name.Contains("Sphero"))
@@ -81,24 +75,26 @@ namespace RobotKit
 						var spheroService = await RfcommDeviceService.FromIdAsync(item.Id);
 
 						Sphero sphero = new Sphero(spheroService);
-						
+
+						foundRobots.Add(sphero);
+
 						DiscoveredRobotEvent?.Invoke(this, new RobotEventArgs(sphero));
 					}
 				}
 			}
 			catch (Exception exception)
 			{
-
 				if ((uint)exception.HResult == 0x8007048F)
 				{
-					MessageDialog dialog = new MessageDialog("Bluetooth is currently switched off");
-					dialog.DefaultCommandIndex = 0;
-					dialog.CancelCommandIndex = 1;
-					await dialog.ShowAsync();
+					throw new InvalidOperationException("Bluetooth is currently switched off", exception);
 				}
-
-				Debug.WriteLine(String.Concat("Rfcomm Serial Service failed: ", exception));
+				else
+				{
+					throw;
+				}
 			}
+
+			return foundRobots.AsReadOnly();
 		}
 
 		public IRobot GetConnectedRobot()
@@ -118,23 +114,6 @@ namespace RobotKit
 				RobotProvider._sharedProvider = new RobotProvider();
 			}
 			return RobotProvider._sharedProvider;
-		}
-		
-
-		private async Task toastConnect(String name)
-		{
-			MessageDialog dialog = new MessageDialog(String.Concat("Connected ", name), "Let's Go Ballin'!");
-			dialog.DefaultCommandIndex = 0;
-			dialog.CancelCommandIndex = 1;
-			await dialog.ShowAsync();
-		}
-
-		private async Task toastFailConnect(String name)
-		{
-			MessageDialog dialog = new MessageDialog(String.Concat("Failed to Connect ", name), "Booooo!");
-			dialog.DefaultCommandIndex = 0;
-			dialog.CancelCommandIndex = 1;
-			await dialog.ShowAsync();
 		}
 
 		public event EventHandler<RobotEventArgs> ConnectedRobotEvent;
