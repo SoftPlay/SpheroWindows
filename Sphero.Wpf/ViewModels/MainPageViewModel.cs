@@ -2,10 +2,14 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.Numerics;
 using System.Threading;
 using Prism.Mvvm;
 using Prism.Windows.Navigation;
 using RobotKit;
+using SpheroController.Common;
+using Windows.Gaming.Input;
+using Windows.UI;
 using Windows.UI.Popups;
 
 namespace SpheroController.Wpf.ViewModels
@@ -15,11 +19,14 @@ namespace SpheroController.Wpf.ViewModels
 		private readonly IRobotProvider robotProvider;
 		private double rollAngle;
 		private double rollDistance;
-		
+		private readonly IXboxController xboxController;
+		private Color colour;
 
-		public MainPageViewModel(IRobotProvider robotProvider)
+		public MainPageViewModel(IRobotProvider robotProvider, IXboxController xboxController)
 		{
 			this.robotProvider = robotProvider;
+			this.xboxController = xboxController;
+			this.xboxController.ReadingChanged += XboxController_ReadingChanged;
 		}
 
 		public ObservableCollection<SpheroViewModel> SpheroViewModelCollection { get; } = new ObservableCollection<SpheroViewModel>();
@@ -106,6 +113,52 @@ namespace SpheroController.Wpf.ViewModels
 
 		public void OnNavigatingFrom(NavigatingFromEventArgs e, Dictionary<string, object> viewModelState, bool suspending)
 		{
+		}
+
+		private void XboxController_ReadingChanged(object sender, GamepadReadingEventArgs e)
+		{
+			if (e.Reading.Buttons.HasFlag(GamepadButtons.Y))
+			{
+				this.Colour = Colors.Yellow;
+			}
+			else if (e.Reading.Buttons.HasFlag(GamepadButtons.B))
+			{
+				this.Colour = Colors.Red;
+			}
+			else if (e.Reading.Buttons.HasFlag(GamepadButtons.A))
+			{
+				this.Colour = Colors.Green;
+			}
+			else if (e.Reading.Buttons.HasFlag(GamepadButtons.X))
+			{
+				this.Colour = Colors.Blue;
+			}
+			
+			var joystickPosition = new JoystickPosition(e.Reading.LeftThumbstickX, e.Reading.LeftThumbstickY);
+
+			this.RollDistance = joystickPosition.Distance;
+			this.RollAngle = joystickPosition.Angle;
+
+			this.DebugItemCollection.Insert(0, $"LeftX {joystickPosition.X}, LeftY {joystickPosition.Y}. Roll {joystickPosition.Distance}, Angle {joystickPosition.Angle}");
+		}
+
+		public Color Colour
+		{
+			get
+			{
+				return this.colour;
+			}
+
+			set
+			{
+				if (this.SetProperty(ref this.colour, value))
+				{
+					foreach(var sphero in this.SpheroViewModelCollection)
+					{
+						sphero.Color = value;
+					}
+				}
+			}
 		}
 	}
 }

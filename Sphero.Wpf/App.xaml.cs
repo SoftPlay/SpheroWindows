@@ -7,12 +7,14 @@ using Prism.Unity.Windows;
 using RobotKit;
 using Windows.ApplicationModel.Activation;
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Data;
 
 namespace SpheroController.Wpf
 {
 	/// <summary>
 	/// Provides application-specific behavior to supplement the default Application class.
 	/// </summary>
+	[Bindable]
 	sealed partial class App : PrismUnityApplication
 	{
 		protected override Task OnLaunchApplicationAsync(LaunchActivatedEventArgs args)
@@ -35,6 +37,7 @@ namespace SpheroController.Wpf
 		{
 			base.ConfigureContainer();
 
+			this.Container.RegisterType<IXboxController, XboxController>();
 			this.Container.RegisterInstance<IRobotProvider>(RobotProvider.GetSharedProvider());
 		}
 
