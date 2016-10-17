@@ -87,5 +87,69 @@ namespace SpheroController.Tests.Unit
 
 			Assert.AreEqual(0.707, Math.Round(sut.Distance, 3));
 		}
+
+		[TestMethod]
+		public void Distance_ForwardsAndSlightlyRight_3Degrees()
+		{
+			var sut = new JoystickPosition(0.05, 1);
+			
+			Assert.AreEqual(3, Math.Round(sut.Angle, 0));
+		}
+
+		[TestMethod]
+		public void Distance_ForwardsAndSlightlyLeft_357()
+		{
+			var sut = new JoystickPosition(-0.05, 1);
+
+			Assert.AreEqual(357, Math.Round(sut.Angle, 0));
+		}
+
+		[TestMethod]
+		public void Distance_ReverseAndSlightlyRight_177()
+		{
+			var sut = new JoystickPosition(0.05, -1);
+
+			Assert.AreEqual(177, Math.Round(sut.Angle, 0));
+		}
+
+		[TestMethod]
+		public void Distance_ReverseAndSlightlyLeft_183()
+		{
+			var sut = new JoystickPosition(-0.05, -1);
+
+			Assert.AreEqual(183, Math.Round(sut.Angle, 0));
+		}
+
+		[TestMethod]
+		public void Angle_WhenTopRight_Equals45()
+		{
+			var sut = new JoystickPosition(1, 1);
+
+			Assert.AreEqual(45, sut.Angle);
+		}
+
+		[TestMethod]
+		public void Angle_WhenBottomRight_Equals135()
+		{
+			var sut = new JoystickPosition(1, -1);
+
+			Assert.AreEqual(135, sut.Angle);
+		}
+
+		[TestMethod]
+		public void Angle_WhenBottomLeft_Equals225()
+		{
+			var sut = new JoystickPosition(-1, -1);
+
+			Assert.AreEqual(225, sut.Angle);
+		}
+
+		[TestMethod]
+		public void Angle_WhenTopLeft_Equals315()
+		{
+			var sut = new JoystickPosition(-1, 1);
+
+			Assert.AreEqual(315, sut.Angle);
+		}
 	}
 }

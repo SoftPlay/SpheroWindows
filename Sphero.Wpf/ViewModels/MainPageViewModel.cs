@@ -136,10 +136,22 @@ namespace SpheroController.Wpf.ViewModels
 			
 			var joystickPosition = new JoystickPosition(e.Reading.LeftThumbstickX, e.Reading.LeftThumbstickY);
 
-			this.RollDistance = joystickPosition.Distance;
+			var distance = joystickPosition.Distance * 100;
+			if (distance < 10)
+			{
+				// Ignore small movements of the joystick
+				distance = 0;
+			}
+			else if (distance > 100)
+			{
+				// 100 is the maximum speed
+				distance = 100;
+			}
+
+			this.RollDistance = distance;
 			this.RollAngle = joystickPosition.Angle;
 
-			this.DebugItemCollection.Insert(0, $"LeftX {joystickPosition.X}, LeftY {joystickPosition.Y}. Roll {joystickPosition.Distance}, Angle {joystickPosition.Angle}");
+			this.DebugItemCollection.Add($"LeftX {joystickPosition.X}, LeftY {joystickPosition.Y}. Roll {distance}, Angle {joystickPosition.Angle}");
 		}
 
 		public Color Colour

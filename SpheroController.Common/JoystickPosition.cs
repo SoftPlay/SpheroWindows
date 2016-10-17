@@ -18,14 +18,22 @@ namespace SpheroController.Common
 		{
 			get
 			{
-				var angle = Math.Atan2(this.X, this.Y) * 180 / Math.PI;
-
-				if (angle < 0)
+				if (this.X == 0 && this.Y == 0)
 				{
-					angle = Math.Abs(angle) + 180;
+					// There is no angle here, so return 0
+					return 0;
 				}
+				else
+				{
+					var angle = Math.Atan2(this.X, this.Y) * 180 / Math.PI;
 
-				return angle;
+					if (this.X < 0)
+					{
+						angle += 360;
+					}
+
+					return angle;
+				}
 			}
 		}
 
