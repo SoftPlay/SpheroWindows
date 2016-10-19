@@ -48,7 +48,7 @@
                             <TextBlock Text="Rotate (Calibrate)" Grid.Column="1" Grid.Row="0" />
                             <TextBox Text="{Binding RotateAngle, Mode=TwoWay}" Grid.Column="1" Grid.Row="1" />
                             
-                            <TextBlock Text="Roll" Grid.Column="1" Grid.Row="0" />
+                            <TextBlock Text="Roll" Grid.Column="1" Grid.Row="3" />
                             <controls:OnScreenJoystick Angle="{Binding RollAngle, Mode=TwoWay}" Distance="{Binding RollDistance, Mode=TwoWay}" Grid.Column="1" Grid.Row="3" />
                         </Grid>
                     </DataTemplate>
