@@ -81,31 +81,35 @@ namespace SpheroController.Wpf.ViewModels
 			}
 			else
 			{
-				foreach (var robot in robots)
+				// Keep trying until we connect to at least 1 Sphero
+				while (this.SpheroViewModelCollection.Count == 0)
 				{
-					if (robot is ISphero)
+					foreach (var robot in robots)
 					{
-						// Discovered a sphero. Now connect to it.
-						this.DebugItemCollection.Add($"Connecting to Sphero {robot.BluetoothName}");
-
-						var connected = await this.robotProvider.ConnectRobot(robot);
-
-						if (connected)
+						if (robot is ISphero)
 						{
-							this.DebugItemCollection.Add($"Connected to Sphero {robot.BluetoothName}!");
+							// Discovered a sphero. Now connect to it.
+							this.DebugItemCollection.Add($"Connecting to Sphero {robot.BluetoothName}");
 
-							var viewModel = new SpheroViewModel(robot as ISphero);
+							var connected = await this.robotProvider.ConnectRobot(robot);
 
-							this.SpheroViewModelCollection.Add(viewModel);
+							if (connected)
+							{
+								this.DebugItemCollection.Add($"Connected to Sphero {robot.BluetoothName}!");
+
+								var viewModel = new SpheroViewModel(robot as ISphero);
+
+								this.SpheroViewModelCollection.Add(viewModel);
+							}
+							else
+							{
+								this.DebugItemCollection.Add($"Failed to connect to Sphero {robot.BluetoothName}");
+							}
 						}
 						else
 						{
-							this.DebugItemCollection.Add($"Failed to connect to Sphero {robot.BluetoothName}");
+							Debug.WriteLine($"Found some other kind of Robot: {robot.GetType()}");
 						}
-					}
-					else
-					{
-						Debug.WriteLine($"Found some other kind of Robot: {robot.GetType()}");
 					}
 				}
 			}
