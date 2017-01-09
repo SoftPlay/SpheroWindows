@@ -13,6 +13,21 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpheroController.Common.Tes
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpheroController.Common", "SpheroController.Common\SpheroController.Common.csproj", "{18680BE5-0DD4-48E6-A2D3-E425786815B5}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Echo", "Echo", "{975F560F-2F08-4E93-97C1-4C4960470EF9}"
+	ProjectSection(SolutionItems) = preProject
+		Echo\Alexa Configuration.txt = Echo\Alexa Configuration.txt
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Lambda", "Lambda", "{B44809E9-ADC8-4E51-9AF3-F30E963340EF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Src", "Src", "{5E4C797F-370E-4E4F-ADF9-EA440DF6E013}"
+	ProjectSection(SolutionItems) = preProject
+		Echo\Lambda\Src\AlexaSkill.js = Echo\Lambda\Src\AlexaSkill.js
+		Echo\Lambda\Src\index.js = Echo\Lambda\Src\index.js
+		Echo\Lambda\Src\options.example.js = Echo\Lambda\Src\options.example.js
+		Echo\Lambda\Src\options.js = Echo\Lambda\Src\options.js
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -100,5 +115,9 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{B44809E9-ADC8-4E51-9AF3-F30E963340EF} = {975F560F-2F08-4E93-97C1-4C4960470EF9}
+		{5E4C797F-370E-4E4F-ADF9-EA440DF6E013} = {B44809E9-ADC8-4E51-9AF3-F30E963340EF}
 	EndGlobalSection
 EndGlobal

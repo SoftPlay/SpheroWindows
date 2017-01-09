@@ -1,0 +1,44 @@
+{
+    "intents": [
+    
+    {
+      "intent": "StartRollIntent",
+      "slots": []
+    },
+
+    {
+      "intent": "StopRollIntent",
+      "slots": []
+    },
+      
+    {
+      "intent": "SetColourIntent",
+      "slots": [
+        {
+            "name": "Colour",
+            "type": "COLOUR"
+        }
+      ]
+    }
+    ]
+}
+
+
+COLOUR
+
+red
+green
+blue
+fuchsia
+
+
+StartRollIntent roll
+StartRollIntent go
+StartRollIntent start rolling
+
+StopRollIntent stop
+StopRollIntent halt
+StopRollIntent stop rolling
+
+SetColourIntent set the colour to {Colour}
+SetColourIntent change colour to {Colour}
