@@ -44,9 +44,9 @@ EchoSphero.prototype.intentHandlers = {
 
 function sqsreq(command, responseCallback) {
     sqsServer.purgeQueue({ QueueUrl: serverUrl }, function (err, data) {
-        console.log("sending SQS " + options.path);
+        console.log("sending SQS " + command);
         sqsClient.sendMessage({
-            MessageBody: options.path,
+            MessageBody: command,
             QueueUrl: clientUrl
         },
             function (err, data) {
@@ -109,8 +109,8 @@ exports.handler = function (event, context) {
     var actLoc = arn.indexOf(region) + region.length + 1;
     var accountId = arn.substring(actLoc, arn.indexOf(':', actLoc));
     var baseSqsUrl = "https://sqs." + region + ".amazonaws.com/" + accountId;
-    serverUrl = baseSqsUrl + "/SQS-Proxy-Server";
-    clientUrl = baseSqsUrl + "/SQS-Proxy-Client";
+    serverUrl = baseSqsUrl + "/SQS-Sphero-Server";
+    clientUrl = baseSqsUrl + "/SQS-Sphero-Client";
     sqsServer = new AWS.SQS({ region: region });
     sqsClient = new AWS.SQS({ region: region });
     
