@@ -1,6 +1,8 @@
 ﻿{
   "dependencies": {
+    "AWSSDK.SQS": "3.3.1.6",
     "colorpicker": "1.0.2",
+    "Microsoft.Net.Http": "2.2.29",
     "Microsoft.NETCore.UniversalWindowsPlatform": "5.2.2",
     "Prism.Core": "6.2.0",
     "Prism.Unity": "6.2.0",

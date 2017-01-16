@@ -1,5 +1,8 @@
 ﻿{
   "dependencies": {
+    "AWSSDK.SQS": "3.3.1.6",
+    "HyperMock.Universal": "2.0.4",
+    "Microsoft.Net.Http": "2.2.29",
     "Microsoft.NETCore.UniversalWindowsPlatform": "5.2.2"
   },
   "frameworks": {

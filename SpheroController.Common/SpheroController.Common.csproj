@@ -107,6 +107,10 @@
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\SqsController.cs" />
+    <Compile Include="Interfaces\IMainPageViewModel.cs" />
+    <Compile Include="Interfaces\ISpheroViewModel.cs" />
+    <Compile Include="Interfaces\ISqsController.cs" />
     <Compile Include="JoystickPosition.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Properties\SpheroController.Common.rd.xml" />

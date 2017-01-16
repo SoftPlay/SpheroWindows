@@ -6,13 +6,14 @@ using System.Text;
 using System.Threading.Tasks;
 using Prism.Mvvm;
 using RobotKit;
+using SpheroController.Common.Interfaces;
 using Windows.UI;
 using Windows.UI.Xaml.Media;
 
 namespace SpheroController.Wpf.ViewModels
 {
-    public class SpheroViewModel : BindableBase
-    {
+    public class SpheroViewModel : BindableBase, ISpheroViewModel
+	{
         private readonly ISphero sphero;
 
         private Color color = Colors.Black;

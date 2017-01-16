@@ -8,13 +8,14 @@ using Prism.Mvvm;
 using Prism.Windows.Navigation;
 using RobotKit;
 using SpheroController.Common;
+using SpheroController.Common.Interfaces;
 using Windows.Gaming.Input;
 using Windows.UI;
 using Windows.UI.Popups;
 
 namespace SpheroController.Wpf.ViewModels
 {
-	public class MainPageViewModel : BindableBase, INavigationAware
+	public class MainPageViewModel : BindableBase, INavigationAware, IMainPageViewModel
 	{
 		private readonly IRobotProvider robotProvider;
 		private double rollAngle;
@@ -29,7 +30,7 @@ namespace SpheroController.Wpf.ViewModels
 			this.xboxController.ReadingChanged += XboxController_ReadingChanged;
 		}
 
-		public ObservableCollection<SpheroViewModel> SpheroViewModelCollection { get; } = new ObservableCollection<SpheroViewModel>();
+		public ObservableCollection<ISpheroViewModel> SpheroViewModelCollection { get; } = new ObservableCollection<ISpheroViewModel>();
 
 		public ObservableCollection<string> DebugItemCollection { get; } = new ObservableCollection<string>();
 
@@ -68,6 +69,14 @@ namespace SpheroController.Wpf.ViewModels
 						sphero.RollDistance = value;
 					}
 				}
+			}
+		}
+
+		public int Count
+		{
+			get
+			{
+				return this.SpheroViewModelCollection.Count;
 			}
 		}
 
