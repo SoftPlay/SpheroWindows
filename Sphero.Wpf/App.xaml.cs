@@ -44,7 +44,7 @@ namespace SpheroController.Wpf
 
 			this.Container.RegisterType<IXboxController, XboxController>();
 
-			this.Container.RegisterInstance<IAmazonSQS>(new AmazonSQSClient("AKIAJAPKYGXLJEIHI4CA", "-- REDACTED --", RegionEndpoint.EUWest1));
+			this.Container.RegisterInstance<IAmazonSQS>(new AmazonSQSClient("AKIAJAPKYGXLJEIHI4CA", "WvneaGvO9fgSKoMko2WPuzvhJI2Cerru4AIJmyfe", RegionEndpoint.EUWest1));
 			this.Container.RegisterType<ISqsController, SqsController>();
 
 			this.Container.RegisterInstance<IRobotProvider>(RobotProvider.GetSharedProvider());
