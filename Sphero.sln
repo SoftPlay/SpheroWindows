@@ -6,6 +6,9 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpheroController.Wpf", "Sphero.Wpf\SpheroController.Wpf.csproj", "{15F2D4BB-5CDE-4855-AD72-800D5375C30C}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{2C13C65B-3D8F-4A63-948E-460F5EDC924C}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RobotKit", "RobotKit\RobotKit.csproj", "{1E50E6E1-893B-4470-8FBF-4F3BC965E75A}"
 EndProject
@@ -15,7 +18,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpheroController.Common", "
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Echo", "Echo", "{975F560F-2F08-4E93-97C1-4C4960470EF9}"
 	ProjectSection(SolutionItems) = preProject
-		Echo\Alexa Configuration.txt = Echo\Alexa Configuration.txt
+		COLOURS.slot.txt = COLOURS.slot.txt
+		intents.json = intents.json
+		utterances.txt = utterances.txt
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Lambda", "Lambda", "{B44809E9-ADC8-4E51-9AF3-F30E963340EF}"

@@ -1,0 +1,24 @@
+{
+  "intents": [
+
+    {
+      "intent": "StartRollIntent",
+      "slots": []
+    },
+
+    {
+      "intent": "StopRollIntent",
+      "slots": []
+    },
+
+    {
+      "intent": "SetColourIntent",
+      "slots": [
+        {
+          "name": "Colour",
+          "type": "COLOUR"
+        }
+      ]
+    }
+  ]
+}
